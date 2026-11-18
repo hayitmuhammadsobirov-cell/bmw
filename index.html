@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="uz" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CRESS.UZ — Ultra-Luxury Streetwear & 3D Interactive Archive</title>
+<meta name="description" content="CRESS.UZ: Bozor qiymati yuqori bo'lgan og'ir grammajli erkaklar kiyimi. 3D modellashtirish, suv o'tkazmaydigan qishki kolleksiya va butun O'zbekistonga tezkor yetkazish.">
+<meta name="theme-color" content="#08090C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CRESS.UZ | 3D Luxury Streetwear">
+<meta property="og:description" content="Sifat narxdan ustun. 3D interaktiv kiyimlar arxivi, chegirmalar va O'zbekiston bo'ylab yetkazish.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+<!-- Google Fonts: Syne, Archivo, Space Grotesk, DM Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=DM+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&display=swap">
+
+<link rel="stylesheet" href="./styl.css">
+
+<!-- Three.js 3D WebGL Engine (Local Offline Bundle + CDN Fallback) -->
+<script src="js/three.min.js"></script>
+<script>
+  if (typeof THREE === 'undefined') {
+    document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>');
+  }
+</script>
+</head>
+<body>
+
+<!-- TOP TICKER BANNER (Urgency & Discounts) -->
+<div class="top-ticker">
+  <span>🔥 <b>LIMITED WINTER DROP</b> — 30% GACHA CHEGIRMALAR TUGASHIGA:</span>
+  <span class="ticker-timer" id="dropTimer">08:42:15</span>
+  <span>· BUTUN O'ZBEKISTONGA TEZKOR YETKAZISH</span>
+</div>
+
+<!-- HEADER / NAVIGATION BAR -->
+<header class="header-bar" id="headerBar">
+  <div class="wrap header-inner">
+    <a href="#top" class="brand-logo" aria-label="CRESS.UZ Home">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M40 12A18 18 0 1 0 40 36L34 31A10 10 0 1 1 34 17Z" fill="#00F0FF"/>
+        
+      </svg>
+      <span>CRESS.UZ</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main Navigation">
+      <a href="#kolleksiya" class="nav-link" data-i18n="nav_shop">Kolleksiya</a>
+      <a href="#heroStage" class="nav-link" data-i18n="nav_3d">3D Studio</a>
+      <a href="#lookbook" class="nav-link" data-i18n="nav_look">Looklar</a>
+      <a href="#olcham" class="nav-link" data-i18n="nav_size">O'lcham</a>
+      <a href="#nega-cress" class="nav-link" data-i18n="nav_why">Nega CRESS.UZ</a>
+      <a href="#otziflar" class="nav-link" data-i18n="nav_reviews">Otziflar</a>
+      <a href="#faq" class="nav-link" data-i18n="nav_faq">Savollar</a>
+    </nav>
+
+    <div class="header-tools">
+      <!-- Admin Panel Trigger -->
+      <button class="admin-nav-btn js-open-admin" type="button" title="Admin Panel (Kiyim qo'shish, narxlar va buyurtmalar)">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <span>STUDIO CMS</span>
+      </button>
+
+      <!-- Haptic Audio Toggle -->
+      <button class="icon-btn" id="soundBtn" type="button" title="Ovoz effektlari (Audio feedback)">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+      </button>
+
+      <!-- Language Switcher (UZ / RU) -->
+      <button class="icon-btn" id="langBtn" type="button" title="Tilni almashtirish">UZ</button>
+
+      <!-- Theme Switcher (Dark / Light) -->
+      <button class="icon-btn" id="themeBtn" type="button" title="Mavzu (Dark/Light)">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+
+      <!-- Wishlist Button -->
+      <button class="icon-btn" id="wishBtn" type="button" title="Sevimlilar">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        <span class="badge-count" id="wishBadge" style="display:none">0</span>
+      </button>
+
+      <!-- Cart Button -->
+      <button class="icon-btn" id="cartBtn" type="button" title="Savat">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        <span class="badge-count" id="cartBadge" style="display:none">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO SECTION WITH INTERACTIVE 3D WEBGL STAGE -->
+  <section class="hero-section" id="heroStage">
+    <div class="wrap hero-grid">
+      <!-- Left Column: Typography & CTAs -->
+      <div class="hero-content">
+        <span class="eyebrow" data-i18n="hero_tag">2026 WINTER DROP · 3D INTERACTIVE ARCHIVE</span>
+        <h1 class="h1 hero-title">
+          <span>CRESS.UZ</span> <br>
+          <span class="glow-word">WEARS</span>
+        </h1>
+        <p class="hero-lead" data-i18n="hero_desc">
+          Bozor standartlaridan ustun, og'ir grammajli premium erkaklar kiyimi. Suv o'tkazmaydigan qishki modellar va 3D modellashtirish.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#kolleksiya" class="btn primary" data-i18n="btn_view_shop">Kolleksiyani ko'rish</a>
+          <button class="btn js-open-admin" type="button">⚙️ Admin Panel</button>
+        </div>
+
+        <dl class="hero-stats">
+          <div class="hero-stat">
+            <dt>5 150+</dt>
+            <dd>Instagram Mijozlari</dd>
+          </div>
+          <div class="hero-stat">
+            <dt>480 GSM</dt>
+            <dd>Og'ir Grammaj Paxta</dd>
+          </div>
+          <div class="hero-stat">
+            <dt>14 Hudud</dt>
+            <dd>Tezkor Yetkazish</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Right Column: Interactive 3D WebGL Canvas Stage -->
+      <div class="hero-3d-stage">
+        <canvas id="hero3dCanvas"></canvas>
+
+        <div class="stage-overlay">
+          <span class="stage-badge">
+            <span class="live-dot"></span>
+            <b>3D INTERACTIVE</b>
+          </span>
+          <div class="hero-lighting-toggle">
+            <button type="button" class="hero-light-btn active" data-light="dark">Studio Dark</button>
+            <button type="button" class="hero-light-btn" data-light="cyber">Cyber Neon</button>
+            <button type="button" class="hero-light-btn" data-light="editorial">Daylight</button>
+          </div>
+        </div>
+
+        <div class="stage-controls-bottom">
+          <!-- 3D Garment Switcher -->
+          <div class="hero-pills">
+            <button type="button" class="hero-3d-pill active" data-model="hoodie">🔥 Hoodie 3D</button>
+            <button type="button" class="hero-3d-pill" data-model="puffer">❄️ Puffer 3D</button>
+            <button type="button" class="hero-3d-pill" data-model="cargo">⚡ Cargo 3D</button>
+            <button type="button" class="hero-3d-pill" data-model="beanie">🧢 Beanie 3D</button>
+            <button type="button" class="hero-3d-pill" data-model="tshirt">👕 T-Shirt 3D</button>
+          </div>
+
+          <!-- Color Swatches & Hint -->
+          <div class="stage-swatches-row">
+            <div class="hero-swatches">
+              <span class="hero-swatch active" style="background:#0B0C10" data-hex="#0B0C10" title="Onyx Qora"></span>
+              <span class="hero-swatch" style="background:#2B303A" data-hex="#2B303A" title="To'q Grafit"></span>
+              <span class="hero-swatch" style="background:#162032" data-hex="#162032" title="Midnight Navy"></span>
+              <span class="hero-swatch" style="background:#3B4436" data-hex="#3B4436" title="Zaytun Yashil"></span>
+              <span class="hero-swatch" style="background:#9E9D9B" data-hex="#9E9D9B" title="Mineral Kulrang"></span>
+              <span class="hero-swatch" style="background:#EAEBE6" data-hex="#EAEBE6" title="Chalk Oq"></span>
+            </div>
+            <span class="stage-hint">🖱️ 360° Aylantiring</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE STRIP -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-inner">
+      <span>PREMIUM SIFAT</span> <span class="dot">✦</span>
+      <span>480 GSM ORGANIC COTTON</span> <span class="dot">✦</span>
+      <span>3D INTERACTIVE STUDIO</span> <span class="dot">✦</span>
+      <span>O'ZBEKISTON BO'YLAB YETKAZISH</span> <span class="dot">✦</span>
+      <span>CRESS.UZ LUXURY</span> <span class="dot">✦</span>
+      <span>SIFAT NARXDAN USTUN</span> <span class="dot">✦</span>
+      <span>PREMIUM SIFAT</span> <span class="dot">✦</span>
+      <span>480 GSM ORGANIC COTTON</span> <span class="dot">✦</span>
+      <span>3D INTERACTIVE STUDIO</span> <span class="dot">✦</span>
+      <span>O'ZBEKISTON BO'YLAB YETKAZISH</span> <span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- SHOP / CATALOG SECTION -->
+  <section class="section" id="kolleksiya">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">CRESS.UZ ARCHIVE</span>
+          <h2 class="h2">Kolleksiya va Chegirmalar</h2>
+        </div>
+        <p id="productsResultCount" style="font-family:var(--font-mono);color:var(--muted);font-size:0.85rem;"></p>
+      </div>
+
+      <!-- Toolbar: Search & Sort -->
+      <div class="catalog-toolbar">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="search" class="search-input" id="searchInput" placeholder="Qidiruv: hoodie, puffer, cargo, sviter..." data-i18n-ph="search_ph">
+        </div>
+
+        <select class="sort-select" id="sortSelect">
+          <option value="new" data-i18n="sort_new">Eng yangilari</option>
+          <option value="discount" data-i18n="sort_discount">Katta chegirmalar</option>
+          <option value="asc" data-i18n="sort_asc">Avval arzonlari</option>
+          <option value="desc" data-i18n="sort_desc">Avval qimmatlari</option>
+        </select>
+      </div>
+
+      <!-- Category Chips Filter -->
+      <div class="category-chips-row" id="categoryChips"></div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="productsGrid"></div>
+    </div>
+  </section>
+
+  <!-- LOOKBOOK SECTION -->
+  <section class="section" id="lookbook" style="background:#0B0D12;">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">EDITORIAL LOOKBOOK</span>
+          <h2 class="h2">Tayyor Streetwear Kombinatsiyalar</h2>
+        </div>
+      </div>
+      <div class="looks-grid" id="looksContainer"></div>
+    </div>
+  </section>
+
+  <!-- SMART SIZE FINDER 2.0 -->
+  <section class="section" id="olcham">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">SMART FIT CALCULATOR</span>
+          <h2 class="h2">O'zingizga Mos O'lchamni Toping</h2>
+        </div>
+      </div>
+
+      <div class="size-finder-box">
+        <div>
+          <h3 style="font-family:var(--font-display);font-size:1.4rem;margin-bottom:12px;">Mukammal Bichim</h3>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.6;">
+            Bo'yingiz va vazningizni ko'rsating. Bizning algoritm mato elastikligi va model xususiyatlarini hisobga olgan holda aniq o'lchamni tavsiya qiladi.
+          </p>
+        </div>
+
+        <div>
+          <div class="sz-slider-group">
+            <div class="sz-slider-label">
+              <span>Bo'y uzunligi</span>
+              <b><span id="szHeightVal">178</span> sm</b>
+            </div>
+            <input type="range" class="sz-range-input" id="szHeight" min="150" max="205" value="178">
+          </div>
+
+          <div class="sz-slider-group">
+            <div class="sz-slider-label">
+              <span>Tana vazni</span>
+              <b><span id="szWeightVal">74</span> kg</b>
+            </div>
+            <input type="range" class="sz-range-input" id="szWeight" min="45" max="130" value="74">
+          </div>
+
+          <div>
+            <span style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);">Kesim uslubi:</span>
+            <div class="sz-fit-selector">
+              <button type="button" class="sz-fit-btn active" data-fit="reg">Oddiy (Regular)</button>
+              <button type="button" class="sz-fit-btn" data-fit="over">Keng (Oversize)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sz-result-display">
+          <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">Tavsiya etilgan o'lcham:</div>
+          <div class="sz-big-badge" id="szResultOut">L</div>
+          <small style="color:var(--muted);font-size:0.75rem;">100% og'ir paxta modeliga mos keladi</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CRESS.UZ SECTION -->
+  <section class="section" id="nega-cress" style="background:#0A0C11;">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">CRESS.UZ STANDARTLARI</span>
+          <h2 class="h2">Nega CRESS.UZ? Sifat Narxdan Ustun</h2>
+        </div>
+      </div>
+
+      <div class="admin-stats-grid">
+        <div class="adm-stat-card">
+          <div class="adm-stat-val">480 GSM</div>
+          <div class="adm-stat-lbl">Premium Og'ir Paxta</div>
+          <p style="color:var(--muted);font-size:0.85rem;margin-top:10px;">Arzon kiyimlar kabi yuvilganda shaklini yo'qotmaydi, bir necha mavsum asl holatini saqlaydi.</p>
+        </div>
+        <div class="adm-stat-card">
+          <div class="adm-stat-val">3D Studio</div>
+          <div class="adm-stat-lbl">Interaktiv Ko'rish</div>
+          <p style="color:var(--muted);font-size:0.85rem;margin-top:10px;">Har bir kiyimni buyurtma qilishdan oldin 360 daraja aylantirib, mato detallarini ko'rishingiz mumkin.</p>
+        </div>
+        <div class="adm-stat-card">
+          <div class="adm-stat-val">24 Soat</div>
+          <div class="adm-stat-lbl">Tezkor Yetkazish</div>
+          <p style="color:var(--muted);font-size:0.85rem;margin-top:10px;">Toshkent shahriga kun davomida, barcha 14 ta viloyat markazlariga 1-2 kunda yetkaziladi.</p>
+        </div>
+        <div class="adm-stat-card">
+          <div class="adm-stat-val">100%</div>
+          <div class="adm-stat-lbl">Isbotlangan Otziflar</div>
+          <p style="color:var(--muted);font-size:0.85rem;margin-top:10px;">Instagram sahifamizda 5 000 dan ortiq real mijozlarning foto va video sharhlari mavjud.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUSTOMER REVIEWS (INSTAGRAM ISBOT OTZIFLAR) -->
+  <section class="section" id="otziflar">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">MIJOZLAR FIKRI</span>
+          <h2 class="h2">Real Otziflar va Sinovlar</h2>
+        </div>
+        <a href="https://www.instagram.com/cressuz/" target="_blank" rel="noopener" class="btn">Instagram Isbot Otziflar</a>
+      </div>
+      <div class="reviews-grid" id="reviewsContainer"></div>
+    </div>
+  </section>
+
+  <!-- DELIVERY & FAQ -->
+  <section class="section" id="faq" style="background:#090B0F;">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">MA'LUMOT VA SAVOLLAR</span>
+          <h2 class="h2">Yetkazib Berish va Tez-tez So'raladigan Savollar</h2>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+        <div>
+          <h3 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:12px;">O'zbekiston Bo'ylab Yetkazish</h3>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.6;">Buyurtmangiz o'z vaqtida, ehtiyotkorlik bilan qadoqlangan holda manzilingizga yetkazib beriladi.</p>
+          <div class="regions-pills-wrap" id="regionsPills"></div>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>Buyurtmani qanday amalga oshiraman?</summary>
+            <p>Kiyimni savatga qo'shing, kerakli rang va o'lchamni tanlang, ism va telefoningizni yozib "Buyurtmani Telegram orqali yuborish" tugmasini bosing. Tayyor formatlangan xabar orqali menejer bilan bog'lanasiz.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Kiyim o'lchami to'g'ri kelmasa nima bo'ladi?</summary>
+            <p>Bizda o'lchamni almashtirish imkoniyati mavjud. Tovarni kiyib ko'rib, o'lcham to'g'ri kelmasa 24 soat ichida almashtirib beramiz.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Mato sifati qanday?</summary>
+            <p>Barcha mahsulotlar og'ir grammajli (280 - 480 GSM) 100% tabiiy organik paxta va premium neylondan tayyorlangan. Hech qanday arzon sintetik qo'shimchalarsiz.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer-bar">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="brand-logo" style="margin-bottom:14px;">
+        <svg viewBox="0 0 48 48" width="28" height="28" aria-hidden="true">
+          <path d="M40 12A18 18 0 1 0 40 36L34 31A10 10 0 1 1 34 17Z" fill="#00F0FF"/>
+        </svg>
+        <span>CRESS.UZ</span>
+      </div>
+      <p style="color:var(--muted);font-size:0.88rem;max-width:380px;line-height:1.6;">
+        Premium erkaklar kiyimi brendi. Sifat narxdan ustun, dizayn va estetika xalqaro standartlarda.
+      </p>
+    </div>
+
+    <div>
+      <h4 style="font-family:var(--font-mono);font-size:0.8rem;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">Ijtimoiy Tarmoqlar</h4>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:0.9rem;">
+        <a href="https://t.me/cressuz" target="_blank" rel="noopener">Telegram: @cressuz</a>
+        <a href="https://www.instagram.com/cressuz/" target="_blank" rel="noopener">Instagram: @cressuz</a>
+      </div>
+    </div>
+
+    <div>
+      <h4 style="font-family:var(--font-mono);font-size:0.8rem;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">Boshqaruv</h4>
+      <button class="btn js-open-admin" type="button" style="padding:10px 18px;font-size:0.78rem;">
+        ⚙️ Studio Admin Panel
+      </button>
+    </div>
+  </div>
+
+  <div class="wrap footer-copy">
+    <div>© 2026 CRESS.UZ. Barcha huquqlar himoyalangan.</div>
+    <div style="font-size:0.75rem;">Agency-Grade 3D E-Commerce Platform</div>
+  </div>
+</footer>
+
+<!-- 3D PRODUCT INSPECTOR MODAL (360° Studio) -->
+<div class="modal-overlay" id="modal3d" hidden>
+  <div class="modal-3d-card">
+    <button type="button" class="modal-close-btn" id="modal3dClose" title="Yopish">×</button>
+
+    <!-- 3D WebGL Canvas Viewport -->
+    <div class="modal-3d-viewport">
+      <canvas id="modal3dCanvas"></canvas>
+      <div class="viewport-tools">
+        <button type="button" class="vp-tool-btn" id="modal3dWireframe">Grid / Wireframe</button>
+      </div>
+    </div>
+
+    <!-- Product Details & Controls -->
+    <div class="modal-3d-details">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="badge sale" id="modal3dBadge" style="display:none">-25% CHEGIRMA</span>
+        <span class="badge d3">3D INSPECTOR</span>
+      </div>
+
+      <h2 id="modal3dTitle" style="font-family:var(--font-display);font-size:1.6rem;font-weight:800;margin-bottom:8px;"></h2>
+      <p id="modal3dFabric" style="color:var(--accent);font-family:var(--font-mono);font-size:0.8rem;margin-bottom:16px;"></p>
+
+      <div class="prod-price-row" style="margin-bottom:20px;">
+        <span class="old-price" id="modal3dOldPrice" style="display:none"></span>
+        <span class="current-price" id="modal3dPrice"></span>
+      </div>
+
+      <p id="modal3dDesc" style="color:var(--muted);font-size:0.9rem;line-height:1.6;margin-bottom:20px;"></p>
+
+      <!-- Color Swatches -->
+      <span style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);">Rangni tanlang (3D modelda bo'yaladi):</span>
+      <div class="swatches-cluster" id="modal3dColors"></div>
+
+      <!-- Size Selector -->
+      <span style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);">O'lchamni tanlang:</span>
+      <div class="sizes-cluster" id="modal3dSizes"></div>
+
+      <div style="margin-top:auto;">
+        <button type="button" class="btn primary block" id="modal3dAddBtn">
+          Savatga Qo'shish
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART SLIDE-OVER DRAWER -->
+<aside class="cart-drawer" id="cartDrawer" hidden>
+  <div class="drawer-header">
+    <h3 style="font-family:var(--font-display);font-size:1.2rem;">Savatdagi Kiyimlar</h3>
+    <button type="button" class="icon-btn" id="cartDrawerClose" style="width:36px;height:36px;">×</button>
+  </div>
+
+  <div class="drawer-body">
+    <div id="cartLines"></div>
+
+    <!-- Promo code input -->
+    <div style="display:flex;gap:8px;margin-top:14px;">
+      <input type="text" class="checkout-input" id="promoInput" placeholder="Promokod (CRESS10)" style="text-transform:uppercase;">
+      <button type="button" class="btn" id="promoApplyBtn" style="padding:8px 14px;font-size:0.75rem;">Qo'llash</button>
+    </div>
+
+    <!-- Checkout info fields -->
+    <div class="checkout-fields">
+      <label style="font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);">Buyurtmachi ma'lumotlari:</label>
+      <input type="text" class="checkout-input" id="checkoutName" placeholder="Ismingiz (masalan: Jasur Karimov)">
+      <input type="tel" class="checkout-input" id="checkoutPhone" placeholder="Telefon: +998 90 123 45 67">
+      <select class="checkout-input" id="checkoutRegion"></select>
+      <input type="text" class="checkout-input" id="checkoutAddress" placeholder="Manzil (Ko'cha, uy yoki mo'ljal)">
+    </div>
+  </div>
+
+  <div class="drawer-footer">
+    <div class="cart-summary-line">
+      <span>Oraliq summa:</span>
+      <b id="cartSubtotal">0 so'm</b>
+    </div>
+    <div class="cart-summary-line" style="color:var(--success);display:none;">
+      <span>Chegirmadan tejov:</span>
+      <b id="cartSavings">0 so'm</b>
+    </div>
+    <div class="cart-summary-line">
+      <span>Yetkazib berish:</span>
+      <b id="cartDelivery">30 000 so'm</b>
+    </div>
+    <div class="cart-summary-line total">
+      <span>Jami to'lov:</span>
+      <b id="cartTotal">0 so'm</b>
+    </div>
+
+    <button type="button" class="btn primary block" id="tgOrderBtn">
+      Buyurtmani Telegramda Yuborish
+    </button>
+  </div>
+</aside>
+
+<!-- ADMIN CMS MODAL (CRESS.UZ STUDIO CONTROL) -->
+<div class="modal-overlay" id="adminModal" hidden>
+  <div class="admin-modal-card">
+    <button type="button" class="modal-close-btn" id="adminModalClose" title="Yopish">×</button>
+
+    <!-- Admin Header -->
+    <div class="admin-header">
+      <div class="admin-title-badge">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#00F0FF" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+        <span>CRESS.UZ</span> STUDIO CMS
+      </div>
+
+      <div class="admin-tabs" id="adminTabsNav">
+        <button type="button" class="admin-tab-btn active" data-tab="products">Kiyimlar Ro'yxati</button>
+        <button type="button" class="admin-tab-btn" data-tab="add">Yangi Kiyim Qo'shish</button>
+        <button type="button" class="admin-tab-btn" data-tab="orders">Buyurtmalar</button>
+        <button type="button" class="admin-tab-btn" data-tab="settings">Sozlamalar & Eksport</button>
+      </div>
+    </div>
+
+    <!-- PIN Authentication Form -->
+    <div id="adminAuthSection" style="padding:40px;">
+      <div class="admin-auth-box">
+        <div style="font-size:2.5rem;margin-bottom:12px;">🔒</div>
+        <h3>Studio Boshqaruviga Kirish</h3>
+        <p>Iltimos, administrator PIN kodini kiriting</p>
+        <form id="adminPinForm">
+          <input type="password" class="pin-input" id="adminPinInput" maxlength="6" placeholder="••••" required autofocus>
+          <button type="submit" class="btn primary block">Tizimga Kirish</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Admin Dashboard Main Body -->
+    <div class="admin-body" id="adminDashboardSection" style="display:none;">
+
+      <!-- TAB 1: PRODUCTS LIST & TABLE -->
+      <div class="admin-tab-content active" id="admTab_products">
+        <!-- Quick stats cards -->
+        <div class="admin-stats-grid">
+          <div class="adm-stat-card">
+            <div class="adm-stat-val" id="admStatTotalProds">0</div>
+            <div class="adm-stat-lbl">Jami Kiyimlar Soni</div>
+          </div>
+          <div class="adm-stat-card">
+            <div class="adm-stat-val" id="admStatDiscounted">0</div>
+            <div class="adm-stat-lbl">Faol Chegirmalar</div>
+          </div>
+          <div class="adm-stat-card">
+            <div class="adm-stat-val" id="admStatTotalValue">0 so'm</div>
+            <div class="adm-stat-lbl">Katalog Umumiy Qiymati</div>
+          </div>
+          <div class="adm-stat-card">
+            <div class="adm-stat-val" id="admStatOrders">0</div>
+            <div class="adm-stat-lbl">Tushgan Buyurtmalar</div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:16px;">
+          <input type="search" class="search-input" id="admSearchInput" placeholder="Kiyim nomi yoki kategoriya bo'yicha qidiruv..." style="max-width:380px;">
+          <button type="button" class="btn primary" onclick="VW.Admin.resetProductForm(); VW.Admin.switchTab('add');">
+            + Yangi Kiyim Qo'shish
+          </button>
+        </div>
+
+        <div class="adm-table-wrap">
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Rasm</th>
+                <th>Kiyim Nomi</th>
+                <th>Narxi</th>
+                <th>Ustiga Chizilgan Narx (Chegirma)</th>
+                <th>3D Model</th>
+                <th>Qoldiq</th>
+                <th>Amallar</th>
+              </tr>
+            </thead>
+            <tbody id="admProductsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 2: ADD / EDIT GARMENT FORM -->
+      <div class="admin-tab-content" id="admTab_add">
+        <h3 id="admFormTitle" style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:20px;">Yangi Kiyim Qo'shish</h3>
+        <form id="adminProductForm">
+          <div class="adm-form-grid">
+            <div class="adm-form-group">
+              <label class="adm-label" for="admNameUz">Kiyim Nomi (O'zbekcha) *</label>
+              <input type="text" class="adm-input" id="admNameUz" placeholder="Masalan: Heavyweight Boxy Hoodie" required>
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admNameRu">Kiyim Nomi (Ruscha)</label>
+              <input type="text" class="adm-input" id="admNameRu" placeholder="Например: Худи Heavyweight Boxy">
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admCat">Kategoriya *</label>
+              <select class="adm-input" id="admCat">
+                <option value="street">Streetwear</option>
+                <option value="winter">Kurtkalar & Puffer</option>
+                <option value="knit">Sviter & Triko</option>
+                <option value="pants">Shim & Cargo</option>
+                <option value="sport">Sport & Zip-Up</option>
+                <option value="acc">Aksessuarlar</option>
+              </select>
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admModel3D">3D Model Geometriyasi *</label>
+              <select class="adm-input" id="admModel3D">
+                <option value="hoodie">Oversize Hoodie 3D</option>
+                <option value="puffer">Cyber Puffer Kurtka 3D</option>
+                <option value="cargo">Tactical Cargo Shim 3D</option>
+                <option value="beanie">Merino Beanie Shapka 3D</option>
+                <option value="tshirt">Heavy T-Shirt 3D</option>
+              </select>
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admPrice">Asosiy Narx (so'mda) *</label>
+              <input type="number" class="adm-input" id="admPrice" placeholder="Masalan: 360000" required>
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admOldPrice">Eski Narx / Ustiga Chiziladigan Narx (so'mda)</label>
+              <input type="number" class="adm-input" id="admOldPrice" placeholder="Masalan: 480000 (agar chegirma bo'lsa)">
+            </div>
+
+            <div class="adm-form-group full">
+              <label class="adm-cb-label">
+                <input type="checkbox" id="admHasDiscount" checked>
+                <b>Chegirmani yoqish</b> (Eski narx ustiga chiziladi va avtomatik chegirma yorlig'i paydo bo'ladi)
+              </label>
+              <div class="adm-calc-box" id="admDiscountPreview"></div>
+            </div>
+
+            <!-- Image selector: upload or URL or preset -->
+            <div class="adm-form-group full">
+              <label class="adm-label">Kiyim Rasmi (Fayl yuklash yoki URL havolasi):</label>
+              <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+                <input type="file" id="admImageFile" accept="image/*" class="adm-input" style="max-width:320px;">
+                <span style="color:var(--muted)">yoki</span>
+                <input type="url" class="adm-input" id="admImageUrl" placeholder="Rasm URL havolasi (https://...)" style="flex:1;min-width:260px;">
+              </div>
+              <img id="admImagePreview" src="" alt="Rasm ko'rinishi" style="max-width:140px;max-height:160px;object-fit:cover;border-radius:6px;margin-top:10px;display:none;border:1px solid var(--border);">
+
+              <div style="margin-top:14px;">
+                <span style="font-size:0.75rem;color:var(--muted);">Yoki tayyor yuqori sifatli fotosuratlardan birini tanlang:</span>
+                <div class="adm-presets-grid" id="admPresetsGrid"></div>
+              </div>
+            </div>
+
+            <!-- Sizes Checkboxes -->
+            <div class="adm-form-group full">
+              <label class="adm-label">Mavjud O'lchamlar:</label>
+              <div class="adm-checkboxes-row">
+                <label class="adm-cb-label"><input type="checkbox" class="adm-size-cb" value="S" checked> S</label>
+                <label class="adm-cb-label"><input type="checkbox" class="adm-size-cb" value="M" checked> M</label>
+                <label class="adm-cb-label"><input type="checkbox" class="adm-size-cb" value="L" checked> L</label>
+                <label class="adm-cb-label"><input type="checkbox" class="adm-size-cb" value="XL" checked> XL</label>
+                <label class="adm-cb-label"><input type="checkbox" class="adm-size-cb" value="XXL" checked> XXL</label>
+                <label class="adm-cb-label"><input type="checkbox" class="adm-size-cb" value="Universal"> Universal</label>
+              </div>
+            </div>
+
+            <!-- Colors Checkboxes -->
+            <div class="adm-form-group full">
+              <label class="adm-label">Mavjud Ranglar:</label>
+              <div class="adm-checkboxes-row">
+                <label class="adm-cb-label"><input type="checkbox" class="adm-color-cb" value="black" checked> Onyx Qora</label>
+                <label class="adm-cb-label"><input type="checkbox" class="adm-color-cb" value="graphite" checked> To'q Grafit</label>
+                <label class="adm-cb-label"><input type="checkbox" class="adm-color-cb" value="navy"> Midnight Navy</label>
+                <label class="adm-cb-label"><input type="checkbox" class="adm-color-cb" value="stone"> Mineral Kulrang</label>
+                <label class="adm-cb-label"><input type="checkbox" class="adm-color-cb" value="olive"> Zaytun Yashil</label>
+                <label class="adm-cb-label"><input type="checkbox" class="adm-color-cb" value="sand"> Sahro Qum</label>
+                <label class="adm-cb-label"><input type="checkbox" class="adm-color-cb" value="chalk"> Chalk Oq</label>
+              </div>
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admBadge">Yorliq (Badge)</label>
+              <select class="adm-input" id="admBadge">
+                <option value="">Yorliqsiz</option>
+                <option value="new">YANGI DROP</option>
+                <option value="hit">HIT SOTUV</option>
+                <option value="sale">CHEGIRMA</option>
+              </select>
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admStock">Ombordagi Qoldiq Soni</label>
+              <input type="number" class="adm-input" id="admStock" value="20" min="0">
+            </div>
+
+            <div class="adm-form-group full">
+              <label class="adm-label" for="admFabric">Mato Tarkibi va Grammaji</label>
+              <input type="text" class="adm-input" id="admFabric" placeholder="Masalan: 100% Organik Og'ir Paxta (French Terry 480 GSM)">
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admDescUz">Tavsif (O'zbekcha)</label>
+              <textarea class="adm-input" id="admDescUz" rows="3" placeholder="Kiyim haqida qisqacha ma'lumot..."></textarea>
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admDescRu">Tavsif (Ruscha)</label>
+              <textarea class="adm-input" id="admDescRu" rows="3" placeholder="Описание товара на русском..."></textarea>
+            </div>
+
+            <div class="adm-form-group full" style="margin-top:16px;">
+              <button type="submit" class="btn primary block" id="admSubmitBtn">
+                Do'konga Qo'shish va E'lon Qilish
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- TAB 3: ORDERS MANAGEMENT -->
+      <div class="admin-tab-content" id="admTab_orders">
+        <h3 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:20px;">Tushgan Buyurtmalar Arxivi</h3>
+        <div class="adm-table-wrap">
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>Buyurtma ID</th>
+                <th>Mijoz</th>
+                <th>Manzil</th>
+                <th>Kiyimlar</th>
+                <th>Jami Summa</th>
+                <th>Holat</th>
+                <th>Telegram</th>
+              </tr>
+            </thead>
+            <tbody id="admOrdersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 4: SETTINGS & BACKUP -->
+      <div class="admin-tab-content" id="admTab_settings">
+        <h3 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:20px;">Do'kon Sozlamalari va Ma'lumotlar Zaxirasi</h3>
+
+        <form id="adminSettingsForm" style="max-width:540px;margin-bottom:40px;">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="adm-form-group">
+              <label class="adm-label" for="admSetTelegram">Telegram Username (@ belgisisiz)</label>
+              <input type="text" class="adm-input" id="admSetTelegram" value="cressuz">
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admSetInstagram">Instagram Username</label>
+              <input type="text" class="adm-input" id="admSetInstagram" value="cressuz">
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admSetPin">Admin PIN Kodi</label>
+              <input type="text" class="adm-input" id="admSetPin" value="0099" maxlength="6">
+            </div>
+
+            <div class="adm-form-group">
+              <label class="adm-label" for="admSetDeliveryPrice">Standart Yetkazish Narxi (so'mda)</label>
+              <input type="number" class="adm-input" id="admSetDeliveryPrice" value="30000">
+            </div>
+
+            <button type="submit" class="btn primary">Sozlamalarni Saqlash</button>
+          </div>
+        </form>
+
+        <div style="border-top:1px solid var(--border);padding-top:28px;">
+          <h4 style="font-family:var(--font-display);font-size:1.1rem;margin-bottom:12px;">Ma'lumotlar Zaxirasi (Backup / Restore)</h4>
+          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:18px;">
+            Barcha qo'shilgan kiyimlar, narxlar, chegirmalar va sozlamalarni JSON fayl ko'rinishida yuklab oling yoki boshqa qurilmaga o'tkazish uchun yuklang.
+          </p>
+
+          <div style="display:flex;gap:14px;flex-wrap:wrap;">
+            <button type="button" class="btn primary" id="admExportBtn">
+              📥 Ma'lumotlarni Eksport Qilish (JSON)
+            </button>
+
+            <label class="btn" style="cursor:pointer;">
+              📤 Ma'lumotlarni Import Qilish (JSON)
+              <input type="file" id="admImportFile" accept=".json" style="display:none;">
+            </label>
+
+            <button type="button" class="btn danger" id="admResetBtn" style="border-color:var(--danger);color:var(--danger);">
+              ⚠️ Standart Holatga Qaytarish
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SCRIM BACKDROP -->
+<div class="scrim" id="scrim"></div>
+
+<!-- JS LIBRARIES & APPLICATION MODULES -->
+<script src="./index.js"></script>
+
+</body>
+</html>
